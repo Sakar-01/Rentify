@@ -39,7 +39,7 @@ const signupFailure = (error) => ({
 });
 export const checkAuthentication = () => async (dispatch) => {
   try {
-    const response = await axios.get('/api/v1/user/verify');
+    const response = await axios.get('/api/user/verify');
     const { isAuthenticated, user } = response.data;
     dispatch(setAuthentication(isAuthenticated, user));
   } catch (error) {
@@ -57,9 +57,9 @@ export const checkAuthentication = () => async (dispatch) => {
 export const signup = (userData,navigateTo) => async (dispatch) => {
 
   dispatch(signupRequest());
-
+  userData.role="seller"
   try {
-    const response = await axios.post('/api/v1/user/signup', userData);
+    const response = await axios.post('/api/user/signup', userData);
     // console.log(response)
     if(response.status=='200'){
       dispatch(signupSuccess(response.data.user));
@@ -78,7 +78,9 @@ export const signup = (userData,navigateTo) => async (dispatch) => {
 export const login = (userData,navigateTo) => async (dispatch) => {
   dispatch(loginRequest());
   try {
-    const response = await axios.post('/api/v1/user/login', userData);
+    userData.role="seller"
+    console.log(userData)
+    const response = await axios.post('/api/user/login', userData);
     if(response.status=='200'){
     dispatch(loginSuccess(response.data.user));
     navigateTo('/')
@@ -94,7 +96,7 @@ export const login = (userData,navigateTo) => async (dispatch) => {
 };
 
 export const logout = () => async(dispatch) => {
-  const response = await axios.get('/api/v1/user/logout');
+  const response = await axios.get('/api/user/logout');
 
   dispatch({
     type: LOGOUT_SUCCESS,
