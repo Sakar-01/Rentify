@@ -57,7 +57,6 @@ export const checkAuthentication = () => async (dispatch) => {
 export const signup = (userData,navigateTo) => async (dispatch) => {
 
   dispatch(signupRequest());
-  userData.role="seller"
   try {
     const response = await axios.post('/api/user/signup', userData);
     // console.log(response)
@@ -78,8 +77,6 @@ export const signup = (userData,navigateTo) => async (dispatch) => {
 export const login = (userData,navigateTo) => async (dispatch) => {
   dispatch(loginRequest());
   try {
-    userData.role="seller"
-    console.log(userData)
     const response = await axios.post('/api/user/login', userData);
     if(response.status=='200'){
     dispatch(loginSuccess(response.data.user));

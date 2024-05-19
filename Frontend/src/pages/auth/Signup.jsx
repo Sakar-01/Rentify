@@ -6,7 +6,7 @@ import { checkAuthentication, signup } from "../../redux/auth/authActions";
 import { useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-import { Paper, TextField, Button, Typography, Container } from "@mui/material";
+import { Paper, TextField, Button, Typography, Container, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 
 const Signup = ({ signup, error }) => {
   const navigateTo = useNavigate();
@@ -18,6 +18,7 @@ const Signup = ({ signup, error }) => {
     name: "",
     email: "",
     password: "",
+    role: ""
   });
 
   const handleChange = (e) => {
@@ -57,65 +58,80 @@ const Signup = ({ signup, error }) => {
       }}
     >
       <Paper
-        elevation={3}
-        style={{
-          width: isSmallScreen ? '90%' : 400,
-          padding: 20,
-        }}
+  elevation={3}
+  style={{
+    width: isSmallScreen ? '90%' : 400,
+    padding: 20,
+  }}
+>
+  <Typography variant="h5" gutterBottom>
+    Sign Up
+  </Typography>
+  <form onSubmit={handleSubmit}>
+    <TextField
+      label="Name"
+      type="text"
+      name="name"
+      value={formData.name}
+      onChange={handleChange}
+      variant="outlined"
+      margin="normal"
+      fullWidth
+      required
+    />
+    <TextField
+      label="Email"
+      type="email"
+      name="email"
+      value={formData.email}
+      onChange={handleChange}
+      variant="outlined"
+      margin="normal"
+      fullWidth
+      required
+    />
+    <TextField
+      label="Password"
+      type="password"
+      name="password"
+      value={formData.password}
+      onChange={handleChange}
+      variant="outlined"
+      margin="normal"
+      fullWidth
+      required
+    />
+    <FormControl variant="outlined" fullWidth margin="normal">
+      <InputLabel id="role-label">Role</InputLabel>
+      <Select
+        labelId="role-label"
+        id="role"
+        name="role"
+        value={formData.role}
+        onChange={handleChange}
+        label="Role"
+        required
       >
-        {" "}
-        <Typography variant="h5" gutterBottom>
-          Sign Up
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label="Name"
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            required
-          />
-          <TextField
-            label="Email"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            required
-          />
-          <TextField
-            label="Password"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            required
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-          >
-          Sign Up
-          </Button>
-          {error && (
-            <Typography style={{ color: "red", marginTop: 10 }}>
-              {error.message}
-            </Typography>
-          )}
-        </form>
-      </Paper>
+        <MenuItem value="buyer">Buyer</MenuItem>
+        <MenuItem value="seller">Seller</MenuItem>
+      </Select>
+    </FormControl>
+    <Button
+      type="submit"
+      variant="contained"
+      color="primary"
+      fullWidth
+    >
+      Sign Up
+    </Button>
+    {error && (
+      <Typography style={{ color: "red", marginTop: 10 }}>
+        {error.message}
+      </Typography>
+    )}
+  </form>
+</Paper>
+
     </Container>
   );
 };

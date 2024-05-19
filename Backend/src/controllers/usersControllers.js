@@ -53,12 +53,14 @@ export const UserLogin = async (
   res,
 ) => {
   try {
-    //user login
-    console.log('ss')
-    const { email, password } = req.body;
+    const { email, password,role } = req.body;
     const user = await Users.findOne({ email });
+    console.log(user,role)
     if (!user) {
       return res.status(401).send("User not registered");
+    }
+    if (role!==user.role) {
+      return res.status(401).send("Role Different");
     }
     const isPasswordCorrect = await compare(password, user.password);
     if (!isPasswordCorrect) {

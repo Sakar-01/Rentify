@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { checkAuthentication, login } from "../../redux/auth/authActions";
-import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-
-import { Paper, TextField, Button, Typography, Container } from "@mui/material";
+import { login } from "../../redux/auth/authActions";
+import {
+  Paper,
+  TextField,
+  Button,
+  Typography,
+  Container,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 const Login = ({ login, error }) => {
   const navigateTo = useNavigate();
-  const theme = useTheme();
-
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    role: "user", // Default role value
   });
 
   const handleChange = (e) => {
@@ -30,36 +34,21 @@ const Login = ({ login, error }) => {
     e.preventDefault();
     login(formData, navigateTo);
   };
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(checkAuthentication());
-    };
-
-    fetchData();
-  }, [dispatch]);
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigateTo("/");
-    }
-  }, [isAuthenticated]);
 
   return (
     <Container
       style={{
-        height: '90vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
+        height: "90vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <Paper
         elevation={3}
         style={{
-          width: isSmallScreen ? '90%' : 400,
+          width: 400,
           padding: 20,
         }}
       >
@@ -77,7 +66,6 @@ const Login = ({ login, error }) => {
             margin="normal"
             fullWidth
             required
-            InputLabelProps={{ shrink: true }}
           />
           <TextField
             label="Password"
@@ -89,8 +77,23 @@ const Login = ({ login, error }) => {
             margin="normal"
             fullWidth
             required
-            InputLabelProps={{ shrink: true }}
           />
+          {/* Role selection */}
+          <FormControl fullWidth variant="outlined" margin="normal">
+            <InputLabel id="role-label">Role</InputLabel>
+            <Select
+              labelId="role-label"
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              label="Role"
+            >
+              <MenuItem value="buyer">Buyer</MenuItem>
+              <MenuItem value="seller">Seller</MenuItem>
+            </Select>
+          </FormControl>
+          {/* End of Role selection */}
           <Button
             type="submit"
             variant="contained"
@@ -101,7 +104,7 @@ const Login = ({ login, error }) => {
             Login
           </Button>
           {error && (
-            <Typography style={{ color: 'red', marginTop: 10 }}>
+            <Typography style={{ color: "red", marginTop: 10 }}>
               {error.message}
             </Typography>
           )}
@@ -109,7 +112,6 @@ const Login = ({ login, error }) => {
       </Paper>
     </Container>
   );
-
 };
 
 const mapStateToProps = (state) => ({
