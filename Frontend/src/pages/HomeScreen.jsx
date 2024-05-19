@@ -14,15 +14,15 @@ const HomeScreen = () => {
   }, [dispatch]);
 
   return (
-    <Container spacing={3}>
+    <Container spacing={3} style={{ marginTop:'30px'}}>
       <Grid container>
         {properties.map((property) => (
           <Link
             to={`/property/${property._id}`}
             style={{ textDecoration: "none" }}
           >
-            <Grid item xs={12} sm={6} lg={4} key={property._id}>
-              <Card style={{ cursor: "pointer" }}>
+            <Grid item xs={12} key={property._id}>
+              <Card style={{ cursor: "pointer",maxWidth:'100%' }}>
                 <CardContent>
                   <img
                     src={`${BACKENDURL}/${property.images.replace(/\\/g, "/")}`}

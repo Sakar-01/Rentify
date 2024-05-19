@@ -5,10 +5,13 @@ import { checkAuthentication } from '../redux/auth/authActions';
 
 const PrivateRoute = () => {
   const [loading, setLoading] = useState(true);
+  const currentPath = location.pathname;
+
+  const isCreatePropertyPage = currentPath.includes('/create-property');
 
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
+  const user =  useSelector((state) => state.auth.user)
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(checkAuthentication());
@@ -21,7 +24,11 @@ const PrivateRoute = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
-
+  const isAuthenticatedSeller = isAuthenticated && user && user.role === 'seller';
+  if(isCreatePropertyPage&&!isAuthenticatedSeller){
+      return <Navigate to="/" />
+    }
+      
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };
 
