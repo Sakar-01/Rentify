@@ -1,0 +1,3 @@
+export const ADD_PROPERTY = 'ADD_PROPERTY';
+export const GET_ALL_PROPERTIES = 'GET_ALL_PROPERTIES';
+

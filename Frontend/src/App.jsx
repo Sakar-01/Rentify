@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
+import AddNewProperty from "./pages/property/AddNewProperty";
+import HomeScreen from "./pages/HomeScreen";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import PrivateRoute from "./utils/PrivateRoute";
@@ -35,7 +37,9 @@ function App() {
         <Routes>
           {/* @Private Routes */}
           <Route path="/" element={<PrivateRoute />}>
-             
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/create-property" element={<AddNewProperty />} />
+
           </Route>
           {/* @Public Routes */}
           <Route path="/register" element={<Signup />} />
