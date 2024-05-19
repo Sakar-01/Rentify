@@ -15,12 +15,11 @@ export const getAllUsers = async (req, res) => {
 };
 export const UserSignup = async (req, res) => {
   try {
-    console.log(req)
-    const { name, email, password } = req.body;
+    const { name, email, password,role } = req.body;
     const existingUser = await Users.findOne({ email });
     if (existingUser) return res.status(401).send("User already registered");
     const hashedPassword = await hash(password, 10);
-    const user = new Users({ name, email, password: hashedPassword });
+    const user = new Users({ name, email, password: hashedPassword,role });
     await user.save();
 
     // create token and store cookie
@@ -55,6 +54,7 @@ export const UserLogin = async (
 ) => {
   try {
     //user login
+    console.log('ss')
     const { email, password } = req.body;
     const user = await Users.findOne({ email });
     if (!user) {
@@ -64,10 +64,6 @@ export const UserLogin = async (
     if (!isPasswordCorrect) {
       return res.status(403).send("Incorrect Password");
     }
-    
-
-    // create token and store cookie
-
     res.clearCookie(COOKIE_NAME, {
       httpOnly: true,
       domain: "localhost",
