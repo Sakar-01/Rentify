@@ -1,8 +1,9 @@
+
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSingleProperty } from '../../redux/property/propertyAction';
-import { useParams, Link } from 'react-router-dom';
-import { Grid, Typography, Container } from '@mui/material';
+import { getSingleProperty, getSellerDetails } from '../../redux/property/propertyAction';
+import { useParams } from 'react-router-dom';
+import { Grid, Typography, Container, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import BACKENDURL from '../../config';
 
@@ -19,14 +20,20 @@ const SingleProperty = () => {
     dispatch(getSingleProperty(id));
   }, [dispatch, id]);
 
-  const { singleProperty } = useSelector((state) => state.property);
+  const { singleProperty, seller } = useSelector((state) => state.property);
+
+  const handleGetSellerDetails = () => {
+    if (singleProperty && singleProperty.seller) {
+      dispatch(getSellerDetails(singleProperty.seller));
+    }
+  };
 
   if (!singleProperty) {
     return <div>Property not found</div>;
   }
 
   return (
-    <Container style={{marginTop:'30px'}}>
+    <Container style={{ marginTop: '30px' }}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           {singleProperty.images && (
@@ -44,6 +51,16 @@ const SingleProperty = () => {
           <Typography>{`Amenities: ${singleProperty.amenities}`}</Typography>
         </Grid>
       </Grid>
+      {seller.name && (
+        <div>
+          <Typography variant="h6">Seller Details:</Typography>
+          <Typography>{`Name: ${seller.name}`}</Typography>
+          <Typography>{`Email: ${seller.email}`}</Typography>
+        </div>
+      )}
+      <Button variant="contained" color="primary" onClick={handleGetSellerDetails} style={{ marginTop: '20px' }}>
+        I'M Interested
+      </Button>
     </Container>
   );
 };

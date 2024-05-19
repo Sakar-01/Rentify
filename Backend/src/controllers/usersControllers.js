@@ -13,6 +13,20 @@ export const getAllUsers = async (req, res) => {
     return res.status(200).json({ message: "ERROR", cause: error.message });
   }
 };
+export const getsingleuser = async (req, res) => {
+  try {
+    const user = await Users.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    console.log(user)
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
 export const UserSignup = async (req, res) => {
   try {
     const { name, email, password,role } = req.body;

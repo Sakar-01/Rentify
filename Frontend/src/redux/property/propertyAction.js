@@ -1,4 +1,4 @@
-import { ADD_PROPERTY,GET_ALL_PROPERTIES,GET_SINGLE_PROPERTY } from './actiontypes';
+import { ADD_PROPERTY,GET_ALL_PROPERTIES,GET_SINGLE_PROPERTY,GET_SELLER } from './actiontypes';
 import axios from 'axios';
 
 export const addProperty = (propertyData) => async (dispatch) => {
@@ -27,6 +27,17 @@ export const addProperty = (propertyData) => async (dispatch) => {
       const response = await axios.get(`/api/property/single/${id}`);
       dispatch({
         type: GET_SINGLE_PROPERTY,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error('Error fetching properties:', error);
+    }
+  };
+  export const getSellerDetails=(id) => async (dispatch) => {
+    try {
+      const response = await axios.get(`/api/user/getsingleuser/${id}`);
+      dispatch({
+        type: GET_SELLER,
         payload: response.data,
       });
     } catch (error) {

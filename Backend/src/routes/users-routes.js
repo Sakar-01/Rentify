@@ -4,7 +4,8 @@ import {
   UserLogin,
   UserSignup,
   verifyUser,
-  userLogout
+  userLogout,
+  getsingleuser
 } from "../controllers/usersControllers.js";
 import {userSignupValidator,validate,loginValidator} from "../utils/validators.js"
 import { verifyToken } from "../utils/token-manager.js";
@@ -12,6 +13,7 @@ import { verifyToken } from "../utils/token-manager.js";
 const userRoutes = express.Router();
 
 userRoutes.get("/getallUsers", getAllUsers);
+userRoutes.get("/getsingleuser/:id",verifyToken, getsingleuser);
 userRoutes.post("/signup",  validate(userSignupValidator), UserSignup);
 userRoutes.post("/login", validate(loginValidator), UserLogin);
 userRoutes.get("/verify", verifyToken, verifyUser);
