@@ -1,7 +1,8 @@
-import { ADD_PROPERTY,GET_ALL_PROPERTIES } from './actiontypes';
+import { ADD_PROPERTY,GET_ALL_PROPERTIES,GET_SINGLE_PROPERTY } from './actiontypes';
 
 const initialState = {
   properties: [],
+  singleProperty:{}
 };
 
 const propertyReducer = (state = initialState, action) => {
@@ -15,6 +16,11 @@ const propertyReducer = (state = initialState, action) => {
       return {
         ...state,
         properties: action.payload,
+      };
+    case GET_SINGLE_PROPERTY:
+      return {
+        ...state,
+        singleProperty: action.payload,
       };
     default:
       return state;

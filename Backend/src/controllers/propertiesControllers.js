@@ -46,3 +46,17 @@ export const GetAllProperties = async (req, res) => {
   }
 
 };
+export const getSingleProperty = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const property = await Property.findById(id);
+
+    if (!property) {
+      return res.status(404).json({ error: 'Property not found' });
+    }
+
+    res.json(property);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};

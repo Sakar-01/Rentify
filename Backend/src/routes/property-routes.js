@@ -1,7 +1,8 @@
 import express from "express";
 import {
   AddNewProperty,
-  GetAllProperties
+  GetAllProperties,
+  getSingleProperty
 } from "../controllers/propertiesControllers.js";
 import { verifyToken } from "../utils/token-manager.js";
 import multer from 'multer';
@@ -17,6 +18,7 @@ const upload = multer({ storage });
 
 propertyRoutes.post("/add",verifyToken,upload.single('image'), AddNewProperty);
 propertyRoutes.get("/getall",verifyToken,GetAllProperties);
+propertyRoutes.get("/single/:id",verifyToken,getSingleProperty);
 
 
 export default propertyRoutes;

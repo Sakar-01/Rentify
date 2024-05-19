@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import AddNewProperty from "./pages/property/AddNewProperty";
+import SingleProperty from "./pages/property/SingleProperty";
 import HomeScreen from "./pages/HomeScreen";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -39,6 +40,7 @@ function App() {
           <Route path="/" element={<PrivateRoute />}>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/create-property" element={<AddNewProperty />} />
+            <Route path="/property/:id" element={<SingleProperty />} />
 
           </Route>
           {/* @Public Routes */}
