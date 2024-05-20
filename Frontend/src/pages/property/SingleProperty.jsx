@@ -3,9 +3,10 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSingleProperty, getSellerDetails } from '../../redux/property/propertyAction';
 import { useParams } from 'react-router-dom';
-import { Grid, Typography, Container, Button } from '@mui/material';
+import { Grid, Typography, Container, Button,Link } from '@mui/material';
 import { styled } from '@mui/system';
 import BACKENDURL from '../../config';
+import {FaArrowLeft} from "react-icons/fa"
 
 const Image = styled('img')({
   height: 'auto',
@@ -34,15 +35,17 @@ const SingleProperty = () => {
 
   return (
     <Container style={{ marginTop: '30px' }}>
-      <Grid container spacing={2}>
+    <Link href="/"><FaArrowLeft/>Back</Link>
+      <Grid container spacing={2} mt='30px'>
         <Grid item xs={12} sm={6}>
           {singleProperty.images && (
             <Image src={`${BACKENDURL}/${singleProperty.images.replace(/\\/g, '/')}`} alt={singleProperty.title} />
           )}
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant="h5">{singleProperty.title}</Typography>
-          <Typography>{singleProperty.description}</Typography>
+          <Typography variant="h4">Property Details</Typography>
+          <Typography variant="h5">Title: {singleProperty.title}</Typography>
+          <Typography>Description: {singleProperty.description}</Typography>
           <Typography>{`Price: ${singleProperty.price}`}</Typography>
           <Typography>{`Place: ${singleProperty.place}`}</Typography>
           <Typography>{`Area: ${singleProperty.area}`}</Typography>

@@ -23,7 +23,7 @@ const Navigation=(props)=> {
           </Typography>
           {
             isAuthenticated ? <>
-            {user.role=='seller'&& <Button color="inherit" to="/create-property">Create New Property</Button>
+            {user.role=='seller'&& <Button component={RouterLink} color="inherit" to="/create-property">Create New Property</Button>
 }
             <Button color="inherit" onClick={()=>{props.logout()}}>Logout</Button>
             </>:

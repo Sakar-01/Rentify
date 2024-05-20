@@ -40,17 +40,18 @@ const AddNewProperty = () => {
     }
     console.log(propertyData)
     dispatch(addProperty(propertyData));
-    // setFormData({
-    //   title: '',
-    //   description: '',
-    //   price: '',
-    //   place: '',
-    //   area: '',
-    //   bedrooms: '',
-    //   bathrooms: '',
-    //   amenities: '',
-    // });
-    // setImage(null);
+    setFormData({
+      title: '',
+      description: '',
+      price: '',
+      place: '',
+      area: '',
+      bedrooms: '',
+      bathrooms: '',
+      amenities: '',
+    });
+    setImage(null);
+    window.location.href="/"
   };
 
   return (
@@ -91,6 +92,7 @@ const AddNewProperty = () => {
               label="Price"
               variant="outlined"
               fullWidth
+              type='number'
               value={formData.price}
               onChange={handleChange}
             />
@@ -112,6 +114,7 @@ const AddNewProperty = () => {
               name="area"
               label="Area"
               variant="outlined"
+              type='number'
               fullWidth
               value={formData.area}
               onChange={handleChange}
@@ -123,6 +126,7 @@ const AddNewProperty = () => {
               name="bedrooms"
               label="Bedrooms"
               variant="outlined"
+              type='number'
               fullWidth
               value={formData.bedrooms}
               onChange={handleChange}
@@ -134,6 +138,7 @@ const AddNewProperty = () => {
               name="bathrooms"
               label="Bathrooms"
               variant="outlined"
+              type='number'
               fullWidth
               value={formData.bathrooms}
               onChange={handleChange}
