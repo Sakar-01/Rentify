@@ -14,6 +14,7 @@ import { logout } from '../redux/auth/authActions';
 const Navigation=(props)=> {
   const user = useSelector((state) => state.auth.user);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  console.log(isAuthenticated,user)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -22,9 +23,8 @@ const Navigation=(props)=> {
             <Button component={RouterLink} color="inherit" to="/">Rentify</Button>
           </Typography>
           {
-            isAuthenticated ? <>
-            {user.role=='seller'&& <Button component={RouterLink} color="inherit" to="/create-property">Create New Property</Button>
-}
+            user&& isAuthenticated ? <>
+            {user.role=='seller'&& <Button component={RouterLink} color="inherit" to="/create-property">Create New Property</Button>}
             <Button color="inherit" onClick={()=>{props.logout()}}>Logout</Button>
             </>:
             <><Button component={RouterLink} color="inherit" to="/register">Register</Button>

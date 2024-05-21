@@ -35,7 +35,7 @@ const HomeScreen = () => {
   return (
     <Container style={{ marginTop: "30px" }}>
       <Grid container justifyContent='center' spacing={4}>
-        {currentProperties.map((property) => (
+        {currentProperties.length?currentProperties.map((property) => (
             <Grid item xs={12} md={4} sm={6}>
           <Link to={`/property/${property._id}`} style={{ textDecoration: "none" }} key={property._id}>
               <Card style={{ cursor: "pointer", maxWidth: "100%" }}>
@@ -52,9 +52,12 @@ const HomeScreen = () => {
               </Card>
           </Link>
             </Grid>
-        ))}
+        )):
+        <Typography variant="h6" mt='30px'>Properties Not Found</Typography>
+
+        }
       </Grid>
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+      {currentProperties.length? <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
         <Button variant="contained" color="primary" onClick={handlePreviousPage} disabled={currentPage === 1}>
           Previous
         </Button>
@@ -67,7 +70,7 @@ const HomeScreen = () => {
         >
           Next
         </Button>
-      </div>
+      </div>:''}
     </Container>
   );
 };

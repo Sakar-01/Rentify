@@ -40,6 +40,7 @@ const signupFailure = (error) => ({
 export const checkAuthentication = () => async (dispatch) => {
   try {
     const response = await axios.get('/api/user/verify');
+    console.log(response)
     const { isAuthenticated, user } = response.data;
     dispatch(setAuthentication(isAuthenticated, user));
   } catch (error) {

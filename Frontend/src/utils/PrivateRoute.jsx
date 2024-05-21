@@ -24,12 +24,15 @@ const PrivateRoute = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
-  const isAuthenticatedSeller = isAuthenticated && user && user.role === 'seller';
-  if(isCreatePropertyPage&&!isAuthenticatedSeller){
-      return <Navigate to="/" />
-    }
+  if(isAuthenticated && user){
+    const isAuthenticatedSeller = isAuthenticated && user && user.role === 'seller';
+    if(isCreatePropertyPage&&!isAuthenticatedSeller){
+        return <Navigate to="/" />
+      }
+  }
+
       
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  return user ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
