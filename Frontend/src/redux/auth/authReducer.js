@@ -14,7 +14,7 @@ const authReducer = (state = initialState, action) => {
     case SET_AUTHENTICATION:
       return {
         ...state,
-        isAuthenticated: action.payload.isAuthenticated,
+        isAuthenticated: true,
         user: action.payload.user,
       };
     case LOGIN_SUCCESS:
