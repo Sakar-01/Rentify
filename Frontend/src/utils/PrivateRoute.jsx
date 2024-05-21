@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { checkAuthentication } from '../redux/auth/authActions'; 
 
 const PrivateRoute = () => {
+  
   const [loading, setLoading] = useState(true);
   const currentPath = location.pathname;
-
-  const isCreatePropertyPage = currentPath.includes('/create-property');
-
+  const isCreatePropertyPage = currentPath.includes('/create-property');  
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user =  useSelector((state) => state.auth.user)
@@ -30,7 +29,6 @@ const PrivateRoute = () => {
         return <Navigate to="/" />
       }
   }
-
       
   return user ? <Outlet /> : <Navigate to="/login" />;
 };

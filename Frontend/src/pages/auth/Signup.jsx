@@ -33,7 +33,7 @@ const Signup = ({ signup, error }) => {
     signup(formData, navigateTo);
   };
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,10 +43,10 @@ const Signup = ({ signup, error }) => {
     fetchData();
   }, [dispatch]);
   useEffect(() => {
-    if (isAuthenticated) {
+    if (user) {
       navigateTo("/");
     }
-  }, [isAuthenticated]);
+  }, [user]);
   return (
     <Container
       style={{

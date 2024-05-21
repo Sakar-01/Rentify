@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../redux/auth/authActions";
+import { login,checkAuthentication } from "../../redux/auth/authActions";
 import {
   Paper,
   TextField,
@@ -13,6 +13,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
 
 const Login = ({ login, error }) => {
   const navigateTo = useNavigate();
@@ -34,7 +35,21 @@ const Login = ({ login, error }) => {
     e.preventDefault();
     login(formData, navigateTo);
   };
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(checkAuthentication());
+    };
+
+    fetchData();
+  }, [dispatch]);
+  useEffect(() => {
+    if (user) {
+      navigateTo("/");
+    }
+  }, [user]);
   return (
     <Container
       style={{

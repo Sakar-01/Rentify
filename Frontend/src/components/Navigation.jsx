@@ -14,7 +14,6 @@ import { logout } from '../redux/auth/authActions';
 const Navigation=(props)=> {
   const user = useSelector((state) => state.auth.user);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  console.log(isAuthenticated,user)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
